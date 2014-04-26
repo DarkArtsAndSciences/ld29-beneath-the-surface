@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block room_text %}
-<p>This is a terrible excuse for a room description. You can't see a thing.</p>
+<p>This is a terrible excuse for a room description. You can't see a thing. {% if 'alcohol' in session.choices %}You need a drink.{% endif %}</p>
 
 <p>You feel yourself throwing off your surface emotions and sinking deeper into your true self.</p>
 
-<p>Your vision blurs as you try to examine the room. Questions swirl through your thoughts. Who are you? Why are you here? Was that a({{color}}) {{animal}}? What are you digging for? Why do you feel so {{adjective}}? Why can't you see clearly?</p>
+<p>Your vision blurs as you try to examine the room. Questions swirl through your thoughts. Who are you? Where can you get some {{session.choices[0]}}? Why are you here? Was that a({{color}}) {{animal}}? What are you digging for? Why do you feel so {{adjective}}? Why can't you see clearly?</p>
 
 <p>You see a row of {{session.level}} short lines drawn on the wall in {{color}} crayon. You don't think they were there a minute ago. You don't see any crayons in the room, either.</p>
 {% endblock %}

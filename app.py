@@ -18,6 +18,7 @@ def index():
 def play():
 	if not 'level' in session:
 		session['level'] = 0
+		session['choices'] = []
 		session['inventory'] = []
 	else:
 		session['level'] += 1
@@ -30,6 +31,12 @@ def play():
 		room = random.choice(random_rooms)
 
 	return inflectr.inflect(render_template(room, **get_words()))
+
+@app.route('/choose/<choice>')
+def choose(choice):
+	session['choices'].append(choice)
+	return inflectr.inflect(render_template('choose.html', choice=choice))
+
 
 @app.route('/get/<item>')
 def get(item):
