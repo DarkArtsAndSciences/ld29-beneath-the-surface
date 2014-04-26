@@ -9,16 +9,17 @@ from words import get_words
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('index.html', hide_exits=True)
 
 @app.route('/play')
 def play():
 	if not 'level' in session:
 		session['level'] = 0
+		session['inventory'] = []
 	else:
 		session['level'] += 1
 
-	custom_rooms = {13: 'unlucky.html'}
+	custom_rooms = {0: 'first.html', 13: 'unlucky.html'}
 	random_rooms = ['play.html', 'paint.html', 'paper.html']
 	if session['level'] in custom_rooms:
 		room = custom_rooms[session['level']]
@@ -26,6 +27,11 @@ def play():
 		room = random.choice(random_rooms)
 
 	return render_template(room, **get_words())
+
+@app.route('/get/<item>')
+def get(item):
+	session['inventory'].append('a {}'.format(item))
+	return render_template('get.html', item=item, inventory=', '.join(session['inventory']))
 
 @app.route('/quit')
 def quit():
