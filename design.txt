@@ -1,0 +1,13 @@
+Ludum Dare 29 - Beneath the Surface
+
+Ideas:
+
+	mining
+
+	a surface named Beneath
+
+	iceberg sidescroller - small overworld, tall underworld
+
+	the ability to see beneath people's surface emotions/behavior and reveal their true feelings/motivations/how they ended up in this situation
+
+	explore the layers of (your own?) mind -- deeper layers are less rational, more random, more psychedelic

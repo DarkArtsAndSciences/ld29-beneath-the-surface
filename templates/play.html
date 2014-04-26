@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% if title %}{{ title }}{% else %}An Empty Room{% endif %}</h1>
+<p>{% if description %}{{ description }}{% else %}This room is indescribable.{% endif %}</p>
+<p><a href="{{ url_for('play') }}">click here</a> to dig deeper...</p>
+{% endblock %}
