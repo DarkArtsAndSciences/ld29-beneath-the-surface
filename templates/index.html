@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block content %}
-<h1>Beneath the Surface</h1>
-<p><a href="{{ url_for('play') }}">click here</a> to dig...</p>
+
+{% block room_name %}Beneath the Surface{% endblock %}
+
+{% block room_text %}
+<p><a href="{{ url_for('play') }}">play game</a></p>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block room_name %}Below the Surface, Level -{{session.level}}{% endblock %}
+
+{% block room_text %}
+<p>The walls are covered in fresh {{color}} paint.</p>
+
+<p>The room smells...wrong.</p>
+
+<p>Not like fresh paint. Not like anything fresh.</p>
+
+<p>You try not to think about what the paint might be covering.</p>
+
+<p><a href="{{ url_for('play') }}">Dig deeper.</a>
+<br/><a href="{{ url_for('quit') }}">Give up and return to the surface.</a></p>
+{% endblock %}

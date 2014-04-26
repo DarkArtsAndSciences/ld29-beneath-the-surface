@@ -5,7 +5,9 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css"/>
 <head>
 <body>
-	<div id="content">{% block content %}{% endblock %}</div>
-	{% block footer %}{% endblock %}
+	<div id="main">
+		<div id="room_name"><h1>{% block room_name %}{% endblock %}</h1></div>
+		<div id="room_text">{% block room_text %}{% endblock %}</div>
+	</div>
 </body>
 </html>

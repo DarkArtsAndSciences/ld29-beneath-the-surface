@@ -1,23 +1,31 @@
 import os
+import random
 
 from flask import Flask, render_template, session, redirect, url_for
 app = Flask(__name__)
 app.config.from_object('config')
 
-from words import get_room, get_words
+from words import get_words
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+	return render_template('index.html')
 
 @app.route('/play')
 def play():
 	if not 'level' in session:
 		session['level'] = 0
-		return render_template('first.html')
+	else:
+		session['level'] += 1
 
-	session['level'] += 1
-	return render_template(get_room(session['level']), **get_words(session['level']))
+	custom_rooms = {13: 'unlucky.html'}
+	random_rooms = ['play.html', 'paint.html', 'paper.html']
+	if session['level'] in custom_rooms:
+		room = custom_rooms[session['level']]
+	else:
+		room = random.choice(random_rooms)
+
+	return render_template(room, **get_words())
 
 @app.route('/quit')
 def quit():

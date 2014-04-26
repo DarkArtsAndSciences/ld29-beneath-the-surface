@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 
-{% block content %}
-<h1>{% if title %}{{ title }}{% else %}An Empty Room{% endif %}</h1>
-<p>{% if description %}{{ description }}{% else %}This room is indescribable.{% endif %}</p>
-<p>You are on level -{{ level }}.</p>
-<p><a href="{{ url_for('play') }}">click here</a> to dig deeper...</p>
-{% endblock %}
+{% block room_name %}Below the Surface, Level -{{session.level}}{% endblock %}
 
-{% block footer %}
-<div id="footer">
-<a href="{{ url_for('quit') }}">give up and return to the surface</a>
-</div>
+{% block room_text %}
+<p>This is a terrible excuse for a room description. You can't see a thing.</p>
+
+<p>The walls are covered in fresh {{color}} paint.</p>
+
+<p>You feel yourself throwing off your surface emotions and sinking deeper into your true self.</p>
+
+<p>Out of the corner of your eye, you glimpse a pile of {{adjective}} {{animal}}s. You turn around to find the room empty except for a single piece of paper with a crude {{animal}} drawn on it in {{color}} crayon.</p>
+
+<p>Your vision blurs as you try to examine the room. Questions swirl through your thoughts. Who are you? Why are you here? Was that a {{color}} {{animal}}? What are you digging for? Why do you feel so {{adjective}}? Why can't you see clearly?</p>
+
+<p>You see a row of {{session.level}} short lines drawn on the wall in {{color}} crayon. You don't think they were there a minute ago. You don't see any crayons in the room, either.</p>
+
+<p><a href="{{ url_for('play') }}">Dig deeper.</a>
+<br/><a href="{{ url_for('quit') }}">Give up and return to the surface.</a></p>
 {% endblock %}

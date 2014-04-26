@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block content %}
-<h1>The First Room</h1>
+
+{% block room_name %}Above the Surface{% endblock %}
+
+{% block room_text %}
 <p>You awaken in an undescribed room. You remember nothing, not even your own name.</p>
-<p>Also, there is a crate here.</p>
-<p>This is either the beginning of a video game, or you're hungover again.</p>
-<p><a href="{{ url_for('play') }}">I think I'm in a video game.</a><br/><a href="{{ url_for('play') }}">I'm never drinking again.</a></p>
+<p>Also, there is a <a href="{{ url_for('play') }}">crate</a> here.</p>
+<p>This is either <a href="{{ url_for('play') }}">the beginning of a video game</a>, or <a href="{{ url_for('play') }}">you're hungover again</a>.</p>
 {% endblock %}

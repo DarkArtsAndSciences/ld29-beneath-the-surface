@@ -1,14 +1,11 @@
 /* Color */
 body { background-color: black; }
-#content { background-color: white; }
-#footer { background-color: white; border-top: 1px dotted gray; }
+#main { background-color: white; }
 
 /* Text alignment */
-h1, .center-text { text-align: center; }
-#footer, .right-text { text-align: right; }
+h1 { text-align: center; }
 
 /* Layout */
-#content, #footer, .center-block { margin-left: auto; margin-right: auto }
+#main, .center-block { margin-left: auto; margin-right: auto }
 
-#content { width: 75%; padding: 10px; }
-#footer { width: 75%; padding: 2px 10px; }
+#main { width: 75%; padding: 10px; }
