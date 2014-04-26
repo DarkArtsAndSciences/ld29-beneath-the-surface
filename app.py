@@ -1,6 +1,9 @@
 import os
 import random
 
+import inflect
+inflectr = inflect.engine()
+
 from flask import Flask, render_template, session, redirect, url_for
 app = Flask(__name__)
 app.config.from_object('config')
@@ -9,7 +12,7 @@ from words import get_words
 
 @app.route('/')
 def index():
-	return render_template('index.html', hide_exits=True)
+	return inflectr.inflect(render_template('index.html', hide_exits=True))
 
 @app.route('/play')
 def play():
@@ -26,12 +29,12 @@ def play():
 	else:
 		room = random.choice(random_rooms)
 
-	return render_template(room, **get_words())
+	return inflectr.inflect(render_template(room, **get_words()))
 
 @app.route('/get/<item>')
 def get(item):
-	session['inventory'].append('a {}'.format(item))
-	return render_template('get.html', item=item, inventory=', '.join(session['inventory']))
+	session['inventory'].append('a({})'.format(item))
+	return inflectr.inflect(render_template('get.html', item=item, inventory=', '.join(session['inventory'])))
 
 @app.route('/quit')
 def quit():
