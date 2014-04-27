@@ -13,23 +13,19 @@
 <body>
 <div id="main">
 
-{% if debug %}<div id="debug">{{debug|safe}}</div>{% endif %}
+<div id="debug">{{session}}</div>
 
 {% if title %}<div id="title">{{title|safe}}</div>{% endif %}
 {% if description %}<div id="description">{{description|safe}}</div>{% endif %}
 
-{% if ui %}<div id="ui">
-	{% if ui.links %}<div id="links">{% for link in ui.links %}
-		<a href="{{link.url}}">{{link.text}}</a><br/>
-	{% endfor %}</div>{% endif %}
+{% if links %}<div id="links">{% for link in links %}{{link|safe}}<br/>{% endfor %}</div>{% endif %}
 
-	{% if session.inventory %}<div id="inventory">
-	Inventory: {{session.inventory|join(', ')}}
-	</div>{% endif %}
+{% if session.inventory %}<div id="inventory">
+Inventory: {{session.inventory|join(', ')}}
+</div>{% endif %}
 
-	{% if session.choices %}<div id="choices">
-	Choices: {{session.choices|join(', ')}}
-	</div>{% endif %}
+{% if session.choices %}<div id="choices">
+Choices: {{session.choices|join(', ')}}
 </div>{% endif %}
 
 </div>

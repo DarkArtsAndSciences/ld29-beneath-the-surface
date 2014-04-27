@@ -5,10 +5,13 @@ body { background-color: black; }
 #debug { border: 2px solid blue; }
 
 /* Fonts */
-#title { font-size: 18pt; font-weight: bold; }
+body { font-size: 13pt; }
+#title { font-size: 21pt; font-weight: bold; }
+#links { font-size: 18pt; font-weight: bold; }
+.smalltext { font-size: 11pt; }
 
 /* Text alignment */
-#title { text-align: center; }
+#title, #links { text-align: center; }
 
 /* Layout */
 #main, .center-block { margin-left: auto; margin-right: auto }
