@@ -145,7 +145,7 @@ def story():
 <p>Off.</p>
 <p>If I could figure out how to die, I'd do it.</p>
 <p>&nbsp;</p>
-<p class='smalltext'>I don't even care if it's cheating. I'd happily type a /cheat/code right into the address bar if I thought it would get me out of here.</p>
+<p class='smalltext'>I don't even care if it's cheating. I'd happily type a <a href='/cheat/code'>/cheat/code</a> right into the address bar if I thought it would get me out of here.</p>
 <p>&nbsp;</p>
 <p>On.</p>
 <p>Off.</p>
@@ -346,7 +346,7 @@ def play_filename(filename, room=None):
 		return inflectr.inflect(render_template('play.html', **page))
 
 	if filename == 'DONT_FAIL_AGAIN':
-		return inflectr.inflect(render_template('play.html', title='Failure is Not an Option', links=['<a href="/">vote</a>', '<a href="/">return to main menu</a>', '<a href="/cheat/clear">start over</a>'], description="""
+		return inflectr.inflect(render_template('play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="/">return to main menu</a>', '<a href="/cheat/clear">start over</a>'], description="""
 <p>Vote for this game or it will eat your soul.</p>
 <p class='bigtext'>THE END</p>
 """))
