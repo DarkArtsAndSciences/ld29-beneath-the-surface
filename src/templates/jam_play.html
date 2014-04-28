@@ -10,14 +10,14 @@
 	<link rel="shortcut icon" href="/static/jam/faceup.ico">
 {% endif %}
 
-<link rel="stylesheet" type="text/css" href="/static/style.css"/>
+<link rel="stylesheet" type="text/css" href="/static/jam/style.css"/>
 {% if 'mode' in session %}
 <link rel="stylesheet" type="text/css" href="/static/{{session.mode}}.css"/>
 {% endif %}
 <head>
 
 <body>
-<div id="main">
+<div id="main" class="background">
 
 	{% if title %}<div id="title">{{title|safe}}</div>{% endif %}
 	{% if description %}<div id="description">{{description|safe}}</div>{% endif %}
@@ -33,7 +33,7 @@
 	</div>{% endif %}
 
 </div>
-<!--<div id="debug">{{session}}</div>-->
+{% if debug %}<div id="debug">{{session}}{% endif %}</div>
 </body>
 
 </html>
