@@ -1,0 +1,4 @@
+body { background-color: white; }
+#main { background-color: black; color: white; }
+a:link, a:visited { color: gray; }
+a:hover { color: white; }

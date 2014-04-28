@@ -5,30 +5,29 @@
 <title>{% if title %}{{title}}{% else %}Beneath the Surface{% endif %}</title>
 
 <link rel="stylesheet" type="text/css" href="/static/style.css"/>
-{% if style %}
-<link rel="stylesheet" type="text/css" href="/static/{{style}}.css"/>
+{% if 'mode' in session %}
+<link rel="stylesheet" type="text/css" href="/static/{{session.mode}}.css"/>
 {% endif %}
 <head>
 
 <body>
 <div id="main">
 
-<div id="debug">{{session}}</div>
+	{% if title %}<div id="title">{{title|safe}}</div>{% endif %}
+	{% if description %}<div id="description">{{description|safe}}</div>{% endif %}
 
-{% if title %}<div id="title">{{title|safe}}</div>{% endif %}
-{% if description %}<div id="description">{{description|safe}}</div>{% endif %}
+	{% if links %}<div id="links">{% for link in links %}{{link|safe}}<br/>{% endfor %}</div>{% endif %}
 
-{% if links %}<div id="links">{% for link in links %}{{link|safe}}<br/>{% endfor %}</div>{% endif %}
+	{% if session.inventory %}<div id="inventory">
+	Inventory: {{session.inventory|join(', ')}}
+	</div>{% endif %}
 
-{% if session.inventory %}<div id="inventory">
-Inventory: {{session.inventory|join(', ')}}
-</div>{% endif %}
-
-{% if session.choices %}<div id="choices">
-Choices: {{session.choices|join(', ')}}
-</div>{% endif %}
+	{% if session.choices %}<div id="choices">
+	Choices: {{session.choices|join(', ')}}
+	</div>{% endif %}
 
 </div>
+<!--<div id="debug">{{session}}</div>-->
 </body>
 
 </html>
