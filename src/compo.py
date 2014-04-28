@@ -5,17 +5,16 @@ import inflect
 inflectr = inflect.engine()
 
 from flask import Flask, render_template, session, redirect, url_for
-app = Flask(__name__)
-app.config.from_object('config')
+from src import app
 
-@app.route('/')
-def index():
+@app.route('/compo')
+def compo_index():
 	if not 'mode' in session:
 		session['mode'] = 'start'
 
 	words = {
 		'start': ['up', '', 'someone', 'change', 'win', 'to stop', 'depend'],
-		'surface': ['up', '', 'someone', 'change', 'cheat', 'to stop', 'depend'],
+		'surface': ['up', '', 'someone', 'change', '<a href="{}">cheat<a>'.format(url_for('compo_cheat', code='code')), 'to stop', 'depend'],
 		'beneath': ['down', '', 'something', 'end', 'die', '', 'depend'],
 		'fail': ['down', '', 'something', 'end', 'cheat', 'many', 'depend'],
 		'multi': ['up', ', yet', 'something', 'end', 'die', 'all the', 'end'],
@@ -23,17 +22,17 @@ def index():
 	}[session['mode']]
 
 	links = {
-		'start': ['<a href="/story">learn more</a>'],
-		'surface': ['<a href="/play">play SURFACE</a>'],
-		'beneath': ['<a href="/play">play BENEATH</a>'],
-		'fail': ['<a href="/fail">play YOU_FAILED</a>'],
-		'multi': ['<a href="/play/YOU_FAILED">play YOU_FAILED</a>',
-			'<a href="/play/BENEATH">play BENEATH</a>'],
-		'final': ['<a href="/play/DONT_FAIL_AGAIN">play DONT_FAIL_AGAIN</a>']*3
+		'start': ['<a href="{}">learn more</a>'.format(url_for('compo_story'))],
+		'surface': ['<a href="{}">play SURFACE</a>'.format(url_for('compo_play'))],
+		'beneath': ['<a href="{}">play BENEATH</a>'.format(url_for('compo_play'))],
+		'fail': ['<a href="{}">play YOU_FAILED</a>'.format(url_for('compo_fail'))],
+		'multi': ['<a href="{}">play YOU_FAILED</a>'.format(url_for('compo_play_file', filename='YOU_FAILED')),
+			'<a href="{}">play BENEATH</a>'.format(url_for('compo_play_file', filename='BENEATH'))],
+		'final': ['<a href="{}">play DONT_FAIL_AGAIN</a>'.format(url_for('compo_play_file', filename='DONT_FAIL_AGAIN'))]*3
 	}[session['mode']]
 
 	if 'walkthrough' in session:
-		links.insert(0, '<a href="/walkthrough">walkthrough</a>')
+		links.insert(0, '<a href="{}">walkthrough</a>'.format(url_for('compo_walkthrough')))
 
 	return inflectr.inflect(render_template('play.html',
 		title='#LD29, I need your help.',
@@ -66,10 +65,10 @@ def index():
 <p>Please, keep an open mind and keep reading. Your life may {} on this "game".</p>
 """.format(*words)))
 
-@app.route('/story')
-def story():
+@app.route('/compo/story')
+def compo_story():
 	if not 'mode' in session:  # new players start at the beginning
-		return redirect(url_for('index'))
+		return redirect(url_for('compo_index'))
 
 	if not 'page' in session:
 		session['page'] = 0
@@ -145,35 +144,35 @@ def story():
 <p>Off.</p>
 <p>If I could figure out how to die, I'd do it.</p>
 <p>&nbsp;</p>
-<p class='smalltext'>I don't even care if it's cheating. I'd happily type a <a href='/cheat/code'>/cheat/code</a> right into the address bar if I thought it would get me out of here.</p>
+<p class='smalltext'>I don't even care if it's cheating. I'd happily type a <a href='{}'>/cheat/code</a> right into the address bar if I thought it would get me out of here.</p>
 <p>&nbsp;</p>
 <p>On.</p>
 <p>Off.</p>
 <p>On.</p>
 <p class='smalltext'>Help.</p>
-"""}]
+""".format(url_for('compo_cheat', code='code'))}]
 
 	page = pages[session['page']]
-	page['links'] = ['<a href="/story">continue</a>']
+	page['links'] = ['<a href="{}">continue</a>'.format(url_for('compo_story'))]
 
 	session['page'] += 1
 	if session['page'] > 2:
 		session['walkthrough'] = True
 	if session['page'] > len(page):
-		page['links'] = ['<a href="/">back to main menu</a>']
+		page['links'] = ['<a href="{}">back to main menu</a>'.format(url_for('compo_index'))]
 		session.pop('page')
 		if session['mode'] == 'start':  # if it's locked...
 			session['mode'] = 'surface'  # unlock /play
 
 	return inflectr.inflect(render_template('play.html', **page))
 
-@app.route('/walkthrough')
-def walkthrough():
+@app.route('/compo/walkthrough')
+def compo_walkthrough():
 	if not 'mode' in session:  # new players start at the beginning
-		return redirect(url_for('index'))
+		return redirect(url_for('compo_index'))
 
 	if not 'walkthrough' in session:  # not unlocked yet
-		return redirect(url_for('story'))
+		return redirect(url_for('compo_story'))
 
 	pages = {
 		'start': {'title': 'Walkthrough', 'description': """
@@ -197,12 +196,12 @@ def walkthrough():
 		'fail': {'title': 'Walkthrough: Failure', 'description': """
 <p>I don't know what's wrong with this game. I'm not even dying anymore, it just cuts straight to my corpse with the evil NPCs standing over it. Staring.</p>
 <p>Why can't I stop playing?</p>
-<p>I wish there was a way to enable multiple save files. Maybe then it would let me start over. I've tried a few <a href='/cheat/code'>cheat codes</a>, but I couldn't figure out the right one.</p>
+<p>I wish there was a way to enable multiple save files. Maybe then it would let me start over. I've tried a few <a href='{}'>cheat codes</a>, but I couldn't figure out the right one.</p>
 <p>I wish I could start over.</p>
 <p>&nbsp;</p>
 <p>Oh, I found the piece of paper that was stuck in the drive at first, remember? The one I thought was an inspection sticker?</p>
 <p>It's a piece of old, thin paper, folded up with a black ink symbol on the inside and a red X on the outside. I don't think I have to tell you what the symbol is. [photo]</p>
-"""},
+""".format(url_for('compo_cheat', code='code'))},
 		'multi': {'title': 'Walkthrough: The Second Save', 'description': """
 <p>Obviously Bad Hint from the Game Pretending to Be Me: try getting yourself killed!</p>
 """},
@@ -213,69 +212,69 @@ def walkthrough():
 """}}
 
 	page = pages[session['mode']]
-	page['links'] = ['<a href="/">return to main menu</a>']
+	page['links'] = ['<a href="{}">return to main menu</a>'.format(url_for('compo_index'))]
 
 	return inflectr.inflect(render_template('play.html', **page))
 
-@app.route('/play')
-def play():
+@app.route('/compo/play')
+def compo_play():
 	if 'mode' in session:
 		if session['mode'] == 'surface':
-			return inflectr.inflect(render_template('play.html', title='The Surface', links=['<a href="/">return to main menu</a>'], description="""
+			return inflectr.inflect(render_template('play.html', title='The Surface', links=['<a href="{}">return to main menu</a>'.format(url_for('compo_index'))], description="""
 <p>You are in a small, cheery house.The walls are off-white with white trim. The front door is locked. Your TV and computer are in the living room. Softly carpeted stairs lead up to your bedroom.</p>
 <p>The local NPCs are smiling and friendly.</p>
 <p>You may turn the lights on and off.</p>
 """))
 
 		if session['mode'] == 'beneath':
-			return inflectr.inflect(render_template('play.html', title='Beneath the Surface', links=['<a href="/play">look around</a>', '<a href="/die">die</a>'], description="""
+			return inflectr.inflect(render_template('play.html', title='Beneath the Surface', links=['<a href="{}">look around</a>'.format(url_for('compo_play')), '<a href="{}">die</a>'.format(url_for('compo_die'))], description="""
 <p>You are in a small, dark house. Brownish paint peels off in long strips from the decaying walls. The front door lock is rusted shut. The living room has been looted of all valuables that weren't nailed down, all valuables that were nailed down, and the nails themselves. Metal prices must be up again.</p>
 <p>The stairway leading down to your bedroom looks wobbly but usable, as long as you're up to date on your tetanus shots.</p>
 <p>You may turn the lights on and off, but the bulbs were stolen years ago.</p>
 """))
 
-	return redirect(url_for('index'))
+	return redirect(url_for('compo_index'))
 
-@app.route('/die')
-def death():
+@app.route('/compo/die')
+def compo_die():
 	if not 'deaths' in session:
-		return redirect(url_for('index'))
+		return redirect(url_for('compo_index'))
 
 	session['deaths'] += 1
 
 	if session['mode'] == 'beneath':
 		if session['deaths'] < 3:
-			return redirect(url_for('dead'))
+			return redirect(url_for('compo_dead'))
 		else:
-			return redirect(url_for('fail'))
+			return redirect(url_for('compo_fail'))
 
 	if session['mode'] == 'multi':
 		session['mode'] = 'final'
-		return redirect(url_for('final'))
+		return redirect(url_for('compo_final'))
 
-	return redirect(url_for('index'))
+	return redirect(url_for('compo_index'))
 
-@app.route('/dead')
-def dead():
+@app.route('/compo/dead')
+def compo_dead():
 	return inflectr.inflect(render_template('play.html',
 		title='You have died',
-		links=['<a href="/">back to main menu</a>'],
+		links=['<a href="{}">back to main menu</a>'.format(url_for('compo_index'))],
 		description="""
 <p>[image of your dead avatar. a local NPC smiles sadly]</p>
 """))
 
-@app.route('/fail')
-def fail():
+@app.route('/compo/fail')
+def compo_fail():
 	session['mode'] = 'fail'
 	return inflectr.inflect(render_template('play.html',
 		title='You have failed',
-		links=['<a href="/">I am a failure.</a>'],
+		links=['<a href="{}">I am a failure.</a>'.format(url_for('compo_index'))],
 		description="""
 <p>[an unskippable cutscene of NPCs laughing at your corpse]</p>
 		"""))
 
-@app.route('/cheat/<code>')
-def cheat(code):
+@app.route('/compo/cheat/<code>')
+def compo_cheat(code):
 	if code in ['clear', 'restart', 'start-over']:
 		session.clear()
 		page = {'description': """
@@ -310,17 +309,17 @@ def cheat(code):
 """.format(code.upper())}
 
 	if not 'links' in page:
-		page['links'] = ['<a href="/">back to main menu</a>']
+		page['links'] = ['<a href="{}">back to main menu</a>'.format(url_for('compo_index'))]
 
 	page['title'] = 'cheat {}'.format(code.upper())
 
 	return inflectr.inflect(render_template('play.html', **page))
 
-@app.route('/play/<filename>')
-@app.route('/play/<filename>/<room>')
-def play_filename(filename, room=None):
+@app.route('/compo/play/<filename>')
+@app.route('/compo/play/<filename>/<room>')
+def compo_play_file(filename, room=None):
 	if filename == 'YOU_FAILED':
-		return inflectr.inflect(render_template('play.html', title='You have failed again', links=['<a href="/">I am a repeated failure. I shall return to the main menu in shame.</a>'], description="""
+		return inflectr.inflect(render_template('play.html', title='You have failed again', links=['<a href="{}">I am a repeated failure. I shall return to the main menu in shame.</a>'.format(url_for('compo_index'))], description="""
 <center><img src='/static/face_down.gif'></center>
 <p>[image: the NPCs continue silently staring at your corpse]</p>
 """))
@@ -328,30 +327,30 @@ def play_filename(filename, room=None):
 	if filename == 'BENEATH':
 		if not room:
 			return inflectr.inflect(render_template('play.html', title='Far Beneath the Surface', description="""
-<p>You are in a small, dark house. Brownish paint peels off in long strips from the decaying walls. The front door lock is rusted shut. The living room has been looted of all valuables that weren't nailed down, all valuables that were nailed down, the <a href='/play/BENEATH/nails'>nails</a> themselves, and most of the floor.</p>
-<p>The <a href='/play/BENEATH/stairway'>stairway</a> leading down to your bedroom looks wobbly but usable, as long as you're up to date on your tetanus shots.</p>
+<p>You are in a small, dark house. Brownish paint peels off in long strips from the decaying walls. The front door lock is rusted shut. The living room has been looted of all valuables that weren't nailed down, all valuables that were nailed down, the <a href='{}'>nails</a> themselves, and most of the floor.</p>
+<p>The <a href='{}'>stairway</a> leading down to your bedroom looks wobbly but usable, as long as you're up to date on your tetanus shots.</p>
 <p>You may turn the lights on and off, but the bulbs were stolen decades ago.</p>
-"""))
+""".format(url_for('compo_play_file', filename='BENEATH', room='nails'), url_for('compo_play_file', filename='BENEATH', room='stairway'))))
 
 		rooms = {
-			'nails': {'title': 'A Rusty Nail', 'links': ['<a href="/play/BENEATH">continue</a>'], 'description': """
+			'nails': {'title': 'A Rusty Nail', 'links': ['<a href="{}">continue</a>'.format(url_for('compo_play'), filename='BENEATH')], 'description': """
 <p>You find a single rusty nail that all the previous scavengers somehow missed.</p>
 <p>It is sharp and rusty and might kill you instantly.</p>
 <p>You don't want that.</p>
 """},
-			'stairway': {'title': 'A Wobbly Stairway', 'links': ['<a href="/play/BENEATH">Yeah, right. Let me into my room already.</a>', '<a href="/die">It\'s what I deserve.</a>'], 'description': """
+			'stairway': {'title': 'A Wobbly Stairway', 'links': ['<a href="{}">Yeah, right. Let me into my room already.</a>'.format(url_for('compo_play'), filename='BENEATH'), '<a href="{}">It\'s what I deserve.</a>'.format(url_for('compo_die'))], 'description': """
 <p>You fall down the stairs and die.</p>
 """}}
 		page = rooms[room]
 		return inflectr.inflect(render_template('play.html', **page))
 
 	if filename == 'DONT_FAIL_AGAIN':
-		return inflectr.inflect(render_template('play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="/">return to main menu</a>', '<a href="/cheat/clear">start over</a>'], description="""
+		return inflectr.inflect(render_template('play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="{}">return to main menu</a>'.format(url_for('compo_index')), '<a href="{}">cheat: RESTART</a>'.format(url_for('compo_cheat', code='restart'))], description="""
 <p>Vote for this game or it will eat your soul.</p>
 <p class='bigtext'>THE END</p>
 """))
 
-	return inflectr.inflect(render_template('play.html', title='Bad Filename', links=['<a href="/">back to main menu</a>'], description="""
+	return inflectr.inflect(render_template('play.html', title='Bad Filename', links=['<a href="{}">back to main menu</a>'.format(url_for('compo_index'))], description="""
 <p>There is no save file named {filename}.</p>
 <p>&nbsp;</p>
 <p>Are you trying to cheat?</p>
@@ -360,15 +359,11 @@ def play_filename(filename, room=None):
 <p style='smalltext'>also, the correct URL is /cheat/&lt;code&gt;</p>
 """))
 
-@app.route('/final')
-def final():
+@app.route('/compo/final')
+def compo_final():
 	return inflectr.inflect(render_template('play.html',
 		title='The Warning',
-		links=['<a href="/">back to main menu</a>'],
+		links=['<a href="{}">back to main menu</a>'.format(url_for('compo_index'))],
 		description="""
 <p>[the game overtly threatens you unless it gets what it wants, but doesn't tell you what it wants]</p>
 """))
-
-if __name__ == "__main__":
-	port = int(os.environ.get("PORT", 5000))
-	app.run(host='0.0.0.0', port=port, debug=True)
