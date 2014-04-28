@@ -4,8 +4,14 @@ import random
 import inflect
 inflectr = inflect.engine()
 
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, send_from_directory, redirect, url_for
 from src import app
+
+@app.route('/favicon.ico')
+def favicon():
+	return send_from_directory(os.path.join(app.root_path, 'static', 'jam'), 'faceup.ico', mimetype='image/vnd.microsoft.icon')
+
+#app.add_url_rule('/favicon.ico', '/static/jam/faceup.ico')
 
 @app.route('/jam')
 def jam_index():
@@ -34,7 +40,7 @@ def jam_index():
 	if 'walkthrough' in session:
 		links.insert(0, '<a href="{}">walkthrough</a>'.format(url_for('jam_walkthrough')))
 
-	return inflectr.inflect(render_template('play.html',
+	return inflectr.inflect(render_template('jam_play.html',
 		title='#LD29, I need your help.',
 		links=links,
 		hidden=['Is the game changing what I typed again?',
@@ -170,7 +176,7 @@ TODO: comment on "arrow" pointing at the paper in image above
 		if session['mode'] == 'start':  # if it's locked...
 			session['mode'] = 'surface'  # unlock /play
 
-	return inflectr.inflect(render_template('play.html', **page))
+	return inflectr.inflect(render_template('jam_play.html', **page))
 
 @app.route('/jam/walkthrough')
 def jam_walkthrough():
@@ -220,20 +226,20 @@ def jam_walkthrough():
 	page = pages[session['mode']]
 	page['links'] = ['<a href="{}">return to main menu</a>'.format(url_for('jam_index'))]
 
-	return inflectr.inflect(render_template('play.html', **page))
+	return inflectr.inflect(render_template('jam_play.html', **page))
 
 @app.route('/jam/play')
 def jam_play():
 	if 'mode' in session:
 		if session['mode'] == 'surface':
-			return inflectr.inflect(render_template('play.html', title='The Surface', links=['<a href="{}">return to main menu</a>'.format(url_for('jam_index'))], description="""
+			return inflectr.inflect(render_template('jam_play.html', title='The Surface', links=['<a href="{}">return to main menu</a>'.format(url_for('jam_index'))], description="""
 <p>You are in a small, cheery house.The walls are off-white with white trim. The front door is locked. Your TV and computer are in the living room. Softly carpeted stairs lead up to your bedroom.</p>
 <p>The local NPCs are smiling and friendly.</p>
 <p>You may turn the lights on and off.</p>
 """))
 
 		if session['mode'] == 'beneath':
-			return inflectr.inflect(render_template('play.html', title='Beneath the Surface', links=['<a href="{}">look around</a>'.format(url_for('jam_play')), '<a href="{}">die</a>'.format(url_for('jam_die'))], description="""
+			return inflectr.inflect(render_template('jam_play.html', title='Beneath the Surface', links=['<a href="{}">look around</a>'.format(url_for('jam_play')), '<a href="{}">die</a>'.format(url_for('jam_die'))], description="""
 <p>You are in a small, dark house. Brownish paint peels off in long strips from the decaying walls. The front door lock is rusted shut. The living room has been looted of all valuables that weren't nailed down, all valuables that were nailed down, and the nails themselves. Metal prices must be up again.</p>
 <p>The stairway leading down to your bedroom looks wobbly but usable, as long as you're up to date on your tetanus shots.</p>
 <p>You may turn the lights on and off, but the bulbs were stolen years ago.</p>
@@ -262,7 +268,7 @@ def jam_die():
 
 @app.route('/jam/dead')
 def jam_dead():
-	return inflectr.inflect(render_template('play.html',
+	return inflectr.inflect(render_template('jam_play.html',
 		title='You have died',
 		links=['<a href="{}">back to main menu</a>'.format(url_for('jam_index'))],
 		description="""
@@ -272,7 +278,7 @@ def jam_dead():
 @app.route('/jam/fail')
 def jam_fail():
 	session['mode'] = 'fail'
-	return inflectr.inflect(render_template('play.html',
+	return inflectr.inflect(render_template('jam_play.html',
 		title='You have failed',
 		links=['<a href="{}">I am a failure.</a>'.format(url_for('jam_index'))],
 		description="""
@@ -319,20 +325,20 @@ def jam_cheat(code):
 
 	page['title'] = 'cheat {}'.format(code.upper())
 
-	return inflectr.inflect(render_template('play.html', **page))
+	return inflectr.inflect(render_template('jam_play.html', **page))
 
 @app.route('/jam/play/<filename>')
 @app.route('/jam/play/<filename>/<room>')
 def jam_play_file(filename, room=None):
 	if filename == 'YOU_FAILED':
-		return inflectr.inflect(render_template('play.html', title='You have failed again', links=['<a href="{}">I am a repeated failure. I shall return to the main menu in shame.</a>'.format(url_for('jam_index'))], description="""
+		return inflectr.inflect(render_template('jam_play.html', title='You have failed again', links=['<a href="{}">I am a repeated failure. I shall return to the main menu in shame.</a>'.format(url_for('jam_index'))], description="""
 <center><img src='/static/face_down.gif'></center>
 <p>[image: the NPCs continue silently staring at your corpse]</p>
 """))
 
 	if filename == 'BENEATH':
 		if not room:
-			return inflectr.inflect(render_template('play.html', title='Far Beneath the Surface', description="""
+			return inflectr.inflect(render_template('jam_play.html', title='Far Beneath the Surface', description="""
 <p>You are in a small, dark house. Brownish paint peels off in long strips from the decaying walls. The front door lock is rusted shut. The living room has been looted of all valuables that weren't nailed down, all valuables that were nailed down, the <a href='{}'>nails</a> themselves, and most of the floor.</p>
 <p>The <a href='{}'>stairway</a> leading down to your bedroom looks wobbly but usable, as long as you're up to date on your tetanus shots.</p>
 <p>You may turn the lights on and off, but the bulbs were stolen decades ago.</p>
@@ -348,15 +354,15 @@ def jam_play_file(filename, room=None):
 <p>You fall down the stairs and die.</p>
 """}}
 		page = rooms[room]
-		return inflectr.inflect(render_template('play.html', **page))
+		return inflectr.inflect(render_template('jam_play.html', **page))
 
 	if filename == 'DONT_FAIL_AGAIN':
-		return inflectr.inflect(render_template('play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/jam/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="{}">return to main menu</a>'.format(url_for('jam_index')), '<a href="{}">cheat: RESTART</a>'.format(url_for('jam_cheat', code='restart'))], description="""
+		return inflectr.inflect(render_template('jam_play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/jam/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="{}">return to main menu</a>'.format(url_for('jam_index')), '<a href="{}">cheat: RESTART</a>'.format(url_for('jam_cheat', code='restart'))], description="""
 <p>Vote for this game or it will eat your soul.</p>
 <p class='bigtext'>THE END</p>
 """))
 
-	return inflectr.inflect(render_template('play.html', title='Bad Filename', links=['<a href="{}">back to main menu</a>'.format(url_for('jam_index'))], description="""
+	return inflectr.inflect(render_template('jam_play.html', title='Bad Filename', links=['<a href="{}">back to main menu</a>'.format(url_for('jam_index'))], description="""
 <p>There is no save file named {filename}.</p>
 <p>&nbsp;</p>
 <p>Are you trying to cheat?</p>
@@ -367,7 +373,7 @@ def jam_play_file(filename, room=None):
 
 @app.route('/jam/final')
 def jam_final():
-	return inflectr.inflect(render_template('play.html',
+	return inflectr.inflect(render_template('jam_play.html',
 		title='The Warning',
 		links=['<a href="{}">back to main menu</a>'.format(url_for('jam_index'))],
 		description="""
