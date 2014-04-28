@@ -279,7 +279,7 @@ def cheat(code):
 	if code in ['clear', 'restart', 'start-over']:
 		session.clear()
 		page = {'description': """
-<p>You use the cheat code {code}.</p>
+<p>You use the cheat code {}.</p>
 <p>You feel completely free.</p>
 """.format(code.upper())}
 
