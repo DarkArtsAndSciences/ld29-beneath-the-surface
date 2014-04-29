@@ -389,7 +389,7 @@ def jam_play_file(filename, room=None):
 		return inflectr.inflect(render_template('jam_play.html', **page))
 
 	if filename == 'DONT_FAIL_AGAIN':
-		return inflectr.inflect(render_template('jam_play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/jam/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="{}">return to main menu</a>'.format(url_for('jam_index')), '<a href="{}">cheat: RESTART</a>'.format(url_for('jam_cheat', code='restart'))], description="""
+		return inflectr.inflect(render_template('jam_play.html', title='Failure is Not an Option', links=['<a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=13938">vote</a>', '<a href="{}">return to main menu</a>'.format(url_for('jam_index')), '<a href="{}">cheat: RESTART</a>'.format(url_for('jam_cheat', code='restart'))], description="""
 <p>Vote for this game or it will eat your soul.</p>
 <p class="bigtext">THE END</p>
 """))
