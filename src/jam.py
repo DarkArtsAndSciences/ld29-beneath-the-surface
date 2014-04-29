@@ -91,11 +91,11 @@ def jam_story():
 <p>The drive wouldn't fit in the port at first. I flipped it a few times, still no luck. Finally I blew into it, like an old video game cartridge, and <span class="bg">a scrap of paper fell out. If you look closely, you can see it circled in the photo beneath. The arrow is pointing at the white edge of the paper. <span class="smalltext">Yeah, that's an arrow, drawing with a trackpad is hard, okay? My parents paid way too much for my art degree.</span> </span></p>
 <center><img src="/static/jam/usb.jpg"></center>
 <p>Looks like the "inspected by" sticker was blocking the contacts.  Well, thank you for my protection.</p>
-<p>I tried again. It slid straight in on the first try. A moment later, a window popped open.
+<p>I tried the now "unprotected" drive. It slid straight in on the first try. A moment later, a window popped open.
 <center><img src="/static/jam/surface.jpg"></center>
 <p>It was empty.</p>
 <p>Not even a readme file helpfully explaining how to install USB drivers so you can mount the drive and read the readme.</p>
-<p>I mean, I hadn't expected working game code or anything like that. But an entertainingly terrible MP3 would have been nice. Even a wallpaper with a giant pixelated version of the corporate logo would have been something. <span class="bg">I felt a rush of disappointment, then anger, far stronger than the situation deserved.</span></p>
+<p>I mean, I hadn't expected working game code or anything like that. But an entertainingly terrible MP3 would have been nice. Even a <a href="/static/jam/wallpaper.png">wallpaper with a giant pixelated version of the corporate logo</a> would have been something. <span class="bg">I felt a rush of disappointment, then anger, far stronger than the situation deserved.</span></p>
 <p>The drive name, SURFACE, was the only thing I could see on the screen. Just sitting there on the screen. <span class="bg">Staring at me. Mocking me.</span></p>
 <center><img src="/static/jam/blurred_surface.jpg"></center>
 <p>I renamed it DEAD_DRIVE, slammed the laptop lid down, and walked away.</p>
@@ -190,19 +190,30 @@ def jam_walkthrough():
 <p>TODO: play game, write walkthrough</p>
 """},
 		'surface': {'title': 'Walkthrough: The Surface', 'description': """
-<p>When the game starts, you'll find yourself in a small house.</p>
-<p>You can turn the lights on and off.</p>
-<p>Disturbingly cheerful NPCs will pretend to be your friends and family.</p>
-<p class="smalltext">TODO: There has to be more to the game than this. What happened to the combat scenes? I can't even find a single way to die.</p>
+<center><img src="/static/jam/rooms.gif"></center>
+<p>When the game opens, you're just inside the front door of a small but cheerful house, facing the brightly-lit first floor hallway. Behind you is a sturdy wooden door with a shiny lock.</p>
+<p class="bg">The object of the game is to unlock this door. Of course, it won't be the first thing you do, but it may be the last. <!-- I have no idea how you win this game, but it sounds plausible. Don't room escape games always tease you with the exit at the start? --></p>
+<p>The hallway branches off into a few rooms: a living room with several electronics to interact with, a kitchen with the usual kitchen appliances and a door to the back yard, and a set of thick-carpeted stairs leading up to the second floor. On the second floor, there are a pair of bedrooms and a bathroom.</p>
+<p>In the living room, you can watch the TV <!-- if you want to stare at an ugly station logo -->. There's also a computer with a few apps: a simulated IRC window full of "I hate this theme! I can't think of anything!", a fake web browser that only goes to ludumdare.com, an IDE with some game code, even a test window with a little screenshot of itself. <!-- This is the most self-referential game I've ever seen. It's like it was written by a flaming demon that feeds on being the center of attention. --> The light switch on the wall even changes the background color of the page! A couch with a pettable pet NPC on it and a fluffy black-and-white rug shaped like a cartoon face complete the room.</p>
+<p>The kitchen has a refrigerator, stove, microwave, table, and dishwasher, and a minigame involving clicking on it all in the right order under the time limit. <!-- Please do not ask me how to beat it. --> A grandmotherly NPC insists on "helping" her favorite person by politely explaining the rules over and over.</p>
+<p>The back door leads to a fenced yard with a small garden and a doghouse with another friendly pet NPC. <!-- that's supposed to be a dog? -->The sky above is bright blue with fluffy clouds and an occasional bird.</p>
+<p>Upstairs, one of the bedrooms is locked and the other apparently belongs to you. Your room has a cheap craft-store wooden "S" painted white on the door. Inside are a bed, some posters, and a closet full of clothes, all white. <!-- Who hangs plain white posters on a white wall? I can't figure out if my avatar is supposed to be insane, or if the artist was just lazy. --> The door with a glossy black carbon-fiber "B" on it is locked, but you can slip items under the door <!-- if your inventory is full of rotten food from trying the kitchen minigame -->. In the bathroom are various plumbing items that you can interact with, and a mirror so you can see what your avatar looks like. <!-- Spoiler: you're as poorly drawn as everything else. --></p>
+<!-- Okay, that's all the rooms.  Now what? -->
+<p>You'll have to find the key to the front door on your own. Try all the minigames. <!-- That should keep them busy for a while. --> Good luck!</p>
+<p>&lt;-- TODO: There has to be more to the game than this. What happened to the combat scenes I saw in the other save file? <span class="bg">I can't find a even single way to die. --></span></p>
 """},
 		'beneath': {'title': 'Walkthrough: Beneath the Surface', 'description': """
-<p>When the game starts, you'll find yourself alone in a small house.</p>
-<p>You will not be alone for long. You will be tempted to use this time to find a weapon.</p>
+<center><img src="/static/jam/rooms_beneath.gif"></center>
+<p>When the game opens, you're just inside the front door of a small, claustrophobic house, facing the narrow first floor hallway. Behind you is a cold steel door with an impressive array of locks and chains.</p>
+<p class="bg">The object of the game is to unlock this door. Of course, it won't be the first thing you do, but it may be the last. <!-- I have no idea how you win this game, but it sounds plausible. Don't room escape games always tease you with the exit at the start? --></p>
+<p>The hallway branches off into a few rooms: a living room with several broken electronics, a kitchen with a few dirty pots and pans and a door to the back lot, and a set of rickety stairs leading up to the second floor. On the second floor, there are a pair of bedrooms and a bathroom.</p>
+<p>In the living room, the TV is broken. The light switch on the wall doesn't do anything. An old couch covered in trash is the only thing on the bare, splintered floorboards.</p>
+<p>Dirty dishes fill the sink in the kitchen. A battered old microwave is the only appliance. Not that it matters, since there isn't any food. A pale spot on the wall over a square white spot on yellowing floor shows where the refrigerator used to be. A small table has room for only one chair.</p>
+<p>The back door leads to a fenced dirt lot. A pile of wooden boards, some with rusted nails still stuck in them, leans against the side of the house. Patches of yellow scrubgrass struggle to survive around the base of the fence. The sky is a birdless dull gray.</p>
+<p>Upstairs, one of the bedrooms is locked and the other apparently belongs to you. Your room has a glossy black carbon-fiber "B" on it, to match most of your posessions. Black satin sheets coordinate with your black leather wardrobe. A single poster-sized sheet of glossy black paper decorates the matte black walls. In the bathroom, the overflowing trash can is all but lost beneath the results of the overflowing plumbing. A mirror taunts you with your own face.</p>
+<p>There is no way to unlock the door.</p>
 <p>You don't want that.</p>
-<p>You should just focus on escape. Get out of the house. Take any option you can.</p>
-<p>You are running out of time.</p>
-<p>You don't want that.</p>
-<p>Hint: this game would also have worked for Death Is Useful.</p>
+<p>You will stay in this house until you die.</p>
 """},
 		'fail': {'title': 'Walkthrough: Failure', 'description': """
 <p>I don't know what's wrong with this game. I'm not even dying anymore, it just cuts straight to my corpse with the evil NPCs standing over it. Staring.</p>
@@ -211,7 +222,8 @@ def jam_walkthrough():
 <p>I wish I could start over.</p>
 <p>&nbsp;</p>
 <p>Oh, I found the piece of paper that was stuck in the drive at first, remember? The one I thought was an inspection sticker?</p>
-<p>It's a piece of old, thin paper, folded up with a black ink symbol on the inside and a red X on the outside. I don't think I have to tell you what the symbol is. [photo]</p>
+<p>It's a piece of folded paper with a black ink symbol on the inside and a red X on the outside. I don't think I have to tell you what the symbol is.</p>
+<center><img src="/static/jam/paper.jpg"></center>
 """.format(url_for('jam_cheat', code='code'))},
 		'multi': {'title': 'Walkthrough: The Second Save', 'description': """
 <p>Obviously Bad Hint from the Game Pretending to Be Me: try getting yourself killed!</p>
@@ -286,30 +298,51 @@ def jam_fail():
 
 @app.route('/jam/cheat/<code>')
 def jam_cheat(code):
-	if code in ['clear', 'restart', 'start-over']:
+	if code.lower() in ['restart']:
 		session.clear()
 		page = {'description': """
 <p>You use the cheat code {}.</p>
 <p>You feel completely free.</p>
 """.format(code.upper())}
 
-	elif code in ['multi', 'multiple', 'many', 'files', 'enable-multiple-files']:
+	elif code.lower() in ['quit', 'exit', 'die', 'death', 'dead', 'kill', 'killme', 'suicide'] and session['mode'] in ['surface', 'beneath', 'multi']:
+		if session['mode'] == 'surface':
+			session['mode'] = 'beneath'
+			session['deaths'] = 0
+		else:
+			session['deaths'] += 1
+		page = {'description': """
+<p>You use the cheat code {}.</p>
+<p>You feel cold and lifeless.</p>
+<p>You feel a sudden rush of paranoia. What if someone saw you cheat? You don't want that.</p>
+<p>You hope this doesn't cause any weird glitches in the game.</p>
+""".format(code.upper())}
+
+	elif code.lower() in ['beneath'] and session['mode'] == 'fail':
 		session['mode'] = 'multi'
 		page = {'description': """
 <p>You use the cheat code {}.</p>
 <p>Your vision doubles for a moment.</p>
-<p>You feel a sudden rush of paranoia. What if someone saw you cheat? You don't want that.</p>
+<p>You feel a sudden rush of paranoia. What if everyone saw you cheat? You don't want that.</p>
+<p>You don't want that.</p>
 <p>You hope the game isn't angry with you.</p>
+<p>You really hope the game isn't angry with you.</p>
 """.format(code.upper())}
 
-	elif code in ['quit', 'die'] and session['mode'] == 'surface':
-		session['mode'] = 'beneath'
-		session['deaths'] = 0
+	elif code.lower() in ['two', 'twofiles', 'many', 'manyfiles', 'enablemanyfiles', 'more', 'morefiles', 'enablemorefiles', 'multiplefiles', 'enablemultiplefiles', 'enablefiles'] and session['mode'] == 'fail':
 		page = {'description': """
 <p>You use the cheat code {}.</p>
-<p>You feel strangely empty.</p>
-<p>You feel a sudden rush of paranoia. What if someone saw you cheat? You don't want that.</p>
-<p>You hope this doesn't cause any weird glitches in the game.</p>
+<p>Your vision doubles for a moment, then clears.</p>
+<p>A wave of relief washes over you. Cheating is wrong. You don't want that.</p>
+<p>You feel like you barely avoided getting into Big Trouble.</p>
+<!-- You're on the right track...but what's the code? -->
+""".format(code.upper())}
+
+	elif code.lower() in ['idontwantthis']:
+		page = {'description': """
+<p>You use the cheat code {}.</p>
+<p>You have found a secret achievement!</p>
+<p>...but nothing happens.</p>
 """.format(code.upper())}
 
 	else:
