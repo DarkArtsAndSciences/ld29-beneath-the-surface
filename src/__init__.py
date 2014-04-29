@@ -8,8 +8,8 @@ import src.compo, src.jam
 def index():
 	return render_template('jam_play.html',
 		title='LD29 - Beneath the Surface',
-		links=['<a href="{}">play compo version</a> (finished)'.format(url_for('compo_index')),
-			'<a href="{}">play jam version</a> (finished)'.format(url_for('jam_index')),
+		links=['<a href="{}">play compo version</a> (made in 48 hours)'.format(url_for('compo_index')),
+			'<a href="{}">play jam version</a> (made in 72 hours)'.format(url_for('jam_index')),
 			'play post-competition version (coming "soon")'.format(url_for('jam_index')),
 			'<a href="http://github.com/DarkArtsAndSciences/ld29-beneath-the-surface">source code<a> (GitHub)'],
 		description="""
@@ -27,8 +27,8 @@ def index():
 <p>More story and photos, and (in reverse chronological order):</p>
 
 <ul>
-<li><b>Changed some of the cheat codes.</b> In particular, the code near the end is NOT the same as the compo version. Think harder.</li>
-<li>Wallpaper.</li>
+<li><b>Changed some of the cheats.</b> In particular, the one near the end is NOT the same as in the compo version. Think harder.</li>
+<li>Wallpaper. (later update: fixed typo)</li>
 <li>A special background image beneath certain parts of the story text.</li>
 <li>Favicons.</li>
 <li>Added photographic proof: the story is true, at least up to "I needed a whiteboard and some other stuff that was on sale".</li>
