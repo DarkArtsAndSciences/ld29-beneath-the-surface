@@ -25,6 +25,7 @@ def index():
 <p>More story and photos, and (in reverse chronological order):</p>
 
 <ul>
+<li><b>Changed some of the cheat codes.</b> In particular, the code near the end is NOT the same as the compo version. Think harder.</li>
 <li>Wallpaper.</li>
 <li>A special background image beneath certain parts of the story text.</li>
 <li>Favicons.</li>
