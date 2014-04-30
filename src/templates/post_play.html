@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+<title>{% if title %}{{title}}{% else %}You Don't Want That{% endif %}</title>
+
+{% if 'mode' in session and session.mode in ['beneath', 'fail', 'final'] %}
+	<link rel="shortcut icon" href="/static/jam/facedown.ico">
+{% else %}
+	<link rel="shortcut icon" href="/static/jam/faceup.ico">
+{% endif %}
+
+<link rel="stylesheet" type="text/css" href="/static/post/style.css"/>
+{% if 'mode' in session %}
+<link rel="stylesheet" type="text/css" href="/static/{{session.mode}}.css"/>
+{% endif %}
+<head>
+
+<body>
+<main class="background center-block">
+	{% if title %}<h1 id="title" class="center-text">{{title|safe}}</h1>{% endif %}
+	{% if subtitle %}<h2 id="subtitle" class="center-text">{{subtitle|safe}}</h2>{% endif %}
+
+	{% if description %}<div id="description">{{description|safe}}</div>{% endif %}
+
+	{% if links %}<div id="links" class="center-text">{% for link in links %}{{link|safe}}<br/>{% endfor %}</div>{% endif %}
+
+	{% if session.inventory %}<div id="inventory">
+	Inventory: {{session.inventory|join(', ')}}
+	</div>{% endif %}
+
+	{% if session.choices %}<div id="choices">
+	Choices: {{session.choices|join(', ')}}
+	</div>{% endif %}
+
+</main>
+{% if debug %}<div id="debug">{{session}}{% endif %}</div>
+
+<footer>
+<div id="copyright" class="smalltext center-text">&copy; 2014 <a href="www.darkartsandsciences.com">Dark Arts and Sciences</a></div>
+</footer>
+</body>
+
+</html>
