@@ -5,4 +5,8 @@ ld29-beneath-the-surface
 
 I made a game for Ludum Dare 29 about cheating at making a game for Ludum Dare 29. I don't think I survived.
 
-<beneath-the-surface.herokuapp.com>
+[beneath-the-surface.herokuapp.com](http://beneath-the-surface.herokuapp.com)
+
+***
+
+Written in python with Flask.
