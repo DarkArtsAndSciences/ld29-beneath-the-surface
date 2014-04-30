@@ -12,7 +12,8 @@ def index():
 		#'post': url_for('post_index'),
 		'source': 'http://github.com/DarkArtsAndSciences/ld29-beneath-the-surface',
 		'compo_reset': url_for('compo_cheat', code='restart'),
-		'ld29': 'http://www.ludumdare.com/compo/ludum-dare-29/'
+		'ld29': 'http://www.ludumdare.com/compo/ludum-dare-29/',
+		'rate': 'http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=13938'
 	}
 	return render_template('post_play.html',
 		title="You Don't Want That",
@@ -52,8 +53,8 @@ def index():
 <li>If you're getting server errors or are completely lost and want to read the introduction again, you can restart the game at the (real) beginning by clearing your browser cookies (it's the one from beneath-the-surface.herokuapp.com). There's also a "restart" cheat, but if you know what to do with that, you probably aren't lost.</li>
 </ul>
 
-<p class="center-text"><a class="link" href="{compo}">play COMPO</a><br/>made in 48 hours</p>
-<p class="center-text"><a class="link" href="{jam}">play JAM</a><br/>made in 72 hours [<a href="#jam">changelog</a>]</p>
+<p class="center-text"><a class="link" href="{compo}">play COMPO</a><br/>made in 48 hours<br/>if you are <a href="{rate}">rating games</a>, please play this version</p>
+<p class="center-text"><a class="link" href="{jam}">play JAM</a><br/>made in 72 hours [<a href="#jam">changelog</a>]<br/>same game, slightly more story</p>
 <p class="center-text"><span class="link">play POST</span><br/>coming "soon" [<a href="#post">changelog</a>]</p>
 <p class="center-text"><a class="link" href="{source}">play GITHUB</a><br/>source and development history</p>
 
@@ -70,7 +71,7 @@ def index():
 
 <a name="post"><h2>Post Competition Changelog</h2></a>
 <ul>
-<li>Fixed hashtag typo (it's #LD48, not #LD29) in several places, including the <a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=13938">entry page</a> title, which left the game without a name, so of course I reused a sentence I wrote <!-- over and over and over --> during the compo.</li>
+<li>Fixed hashtag typo (it's #LD48, not #LD29) in several places, including the <a href="{rate}">entry page</a> title, which left the game without a name, so of course I reused a sentence I wrote <!-- over and over and over --> during the compo.</li>
 <li>New logo (see above), which is just both compo logos and the "new" game name all in one image, so it's arguably a one-line fix...<b>in Photoshop</b>.</li>
 <li>While on the entry page, I noticed I still had 4 open screenshot slots, so I added the new logo, the first and last photos from the story, and a screenshot of THE END (the original screenshot is still there, but not the primary).</li>
 <li>Another <a href="/static/post/you_dont_want_that_1920x1080.gif">wallpaper</a> with the new logo, because the Jam wallpaper wasn't pixelated enough.</li>
